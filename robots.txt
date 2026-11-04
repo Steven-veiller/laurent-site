@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.jardinier-paysagiste-beziers.fr/sitemap.xml
