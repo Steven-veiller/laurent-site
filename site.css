@@ -139,3 +139,5 @@ footer a{color:#fff}
   .callbar .btn{flex:1;min-height:50px}
   footer{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 }
+
+.brand img{flex-shrink:0;max-width:none}
