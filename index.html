@@ -824,11 +824,15 @@ form.addEventListener('submit',async e=>{e.preventDefault();
  if(!document.getElementById('c1').checked){err.textContent='Cochez la case d’accord pour que Laurent puisse vous répondre.';err.hidden=false;return;}
  err.hidden=true;const bt=form.querySelector('button[type=submit]');bt.disabled=true;bt.style.opacity='.6';
  const t=form.querySelector('input[name=type]:checked');
- const data={access_key:WEB3FORMS_KEY,subject:'Nouvelle demande de devis : '+form.nom.value.trim()+' ('+form.commune.value.trim()+')',from_name:'Site internet',
-  'Nom':form.nom.value.trim(),'Téléphone':form.tel.value.trim(),'E-mail':form.mail.value.trim()||'non indiqué','Commune':form.commune.value.trim(),
-  'Type de demande':t?t.parentNode.textContent.trim():'',
-  'Travaux':[...form.querySelectorAll('input[name=travaux]:checked')].map(x=>x.value).join(', ')||'non précisé',
-  'Message':form.msg.value.trim()||'(pas de message)','Conseils de saison':document.getElementById('c2').checked?'Oui, accepte':'Non',
+ const TY={ponctuel:'Un chantier sur devis',regulier:'Un entretien régulier',pro:'Un professionnel (agence, syndic, commerce)'};
+ const nom=form.nom.value.trim(),com=form.commune.value.trim(),tel=form.tel.value.trim(),mail=form.mail.value.trim();
+ const trav=[...form.querySelectorAll('input[name=travaux]:checked')].map(x=>x.value).join(', ')||'Non précisé';
+ const data={access_key:WEB3FORMS_KEY,subject:'🌿 Demande de devis : '+nom+' à '+com,from_name:'Site laurent-garrigues.fr',
+  '📍 Commune':com,'🛠️ Ce qu’il faut faire':trav,'📋 Type de demande':t?TY[t.value]:'',
+  '💬 Son message':form.msg.value.trim()||'(pas de message)',
+  '👤 Nom':nom,'📞 Téléphone':tel,'✉️ E-mail':mail||'non indiqué',
+  '🌱 Conseils de saison':document.getElementById('c2').checked?'Oui, il accepte de les recevoir':'Non',
+  '➡️ À faire':'Rappeler '+nom+' au '+tel+' sous 24 h'+(mail?', ou répondre directement à ce mail : la réponse lui arrive.':'.'),
   botcheck:form.botcheck.checked};
  if(form.mail.value.trim())data.replyto=form.mail.value.trim();
  try{const r=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Content-Type':'application/json',Accept:'application/json'},body:JSON.stringify(data)});const j=await r.json();
