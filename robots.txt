@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jardinier-paysagiste-beziers.fr/sitemap.xml
+Sitemap: https://www.laurent-garrigues.fr/sitemap.xml
